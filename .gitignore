@@ -1,0 +1,16 @@
+
+# Created by https://www.toptal.com/developers/gitignore/api/code,node
+# Edit at https://www.toptal.com/developers/gitignore?templates=code,node
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# dotenv environment variables file
+.env
+.env.test
+.env*.local
+# End of https://www.toptal.com/developers/gitignore/api/code,node
