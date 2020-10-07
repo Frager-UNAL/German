@@ -84,8 +84,6 @@ func Admin_update(id int, nombre string, correo string, contrasena string) (mode
 
 	query += fmt.Sprintf("WHERE id=%d", id)
 
-	println(query)
-
 	results, err := Db.Query(query)
 
 	var administrador models.Administrador = models.Administrador{Id: -1}

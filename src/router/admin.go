@@ -14,11 +14,11 @@ import (
 
 func admin_initialize() {
 	router.HandleFunc("/admin/login", admin_login).Methods("POST")
-	router.HandleFunc("/admin/create", admin_create).Methods("POST")
-	router.HandleFunc("/admin/update", admin_update).Methods("POST")
-	router.HandleFunc("/admin/delete", admin_delete).Methods("POST")
-	router.HandleFunc("/admin/all", admin_all).Methods("GET")
-	router.HandleFunc("/admin/byId/{id}", admin_byId).Methods("GET")
+	router.HandleFunc("/admin", admin_create).Methods("POST")
+	router.HandleFunc("/admin", admin_update).Methods("PUT")
+	router.HandleFunc("/admin/{id}", admin_delete).Methods("DELETE")
+	router.HandleFunc("/admin", admin_all).Methods("GET")
+	router.HandleFunc("/admin/{id}", admin_byId).Methods("GET")
 }
 
 func admin_login(w http.ResponseWriter, r *http.Request) {
@@ -124,7 +124,7 @@ func admin_update(w http.ResponseWriter, r *http.Request) {
 
 func admin_delete(w http.ResponseWriter, r *http.Request) {
 
-	correct, correctMap := verifyRequest(r, []string{"id"})
+	correct, correctMap := verifyRequest(r, []string{})
 	correctMap["ok"] = false
 
 	if !correct {
@@ -132,10 +132,11 @@ func admin_delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, errId := strconv.Atoi(r.Form.Get("id"))
+	idParam := mux.Vars(r)["id"]
+	id, errId := strconv.Atoi(idParam)
 
 	if errId != nil {
-		correctMap["id"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id"), errId.Error())
+		correctMap["id"] = fmt.Sprintf("'%s' is not a number: %s", idParam, errId.Error())
 		json.NewEncoder(w).Encode(correctMap)
 		return
 	}
