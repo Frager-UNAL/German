@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"./dbconn"
@@ -31,6 +32,8 @@ func main() {
 	myEnv := getEnv()
 
 	err := dbconn.Connect(myEnv.DATABASE_URL)
+
+	fmt.Printf("DB Error: %t\n", err != nil)
 
 	if err != nil {
 		println("Error on DB Connection")
