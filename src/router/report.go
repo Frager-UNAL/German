@@ -39,10 +39,10 @@ func report_all(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success Get reports"
-	correctMap["reports"] = reports
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success Get reports"
+	// correctMap["reports"] = reports
+	json.NewEncoder(w).Encode(reports)
 }
 
 func report_byId(w http.ResponseWriter, r *http.Request) {
@@ -73,10 +73,10 @@ func report_byId(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success Get report"
-	correctMap["report"] = report
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success Get report"
+	// correctMap["report"] = report
+	json.NewEncoder(w).Encode(report)
 }
 
 func report_reported(w http.ResponseWriter, r *http.Request) {
@@ -97,10 +97,10 @@ func report_reported(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success Get reports"
-	correctMap["reports"] = reports
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success Get reports"
+	// correctMap["reports"] = reports
+	json.NewEncoder(w).Encode(reports)
 }
 
 func report_create(w http.ResponseWriter, r *http.Request) {
@@ -137,10 +137,10 @@ func report_create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success Report Added"
-	correctMap["report"] = report
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success Report Added"
+	// correctMap["report"] = report
+	json.NewEncoder(w).Encode(report)
 }
 
 func report_update(w http.ResponseWriter, r *http.Request) {
@@ -169,10 +169,10 @@ func report_update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success Report Update"
-	correctMap["report"] = report
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success Report Update"
+	// correctMap["report"] = report
+	json.NewEncoder(w).Encode(report)
 }
 
 func report_delete(w http.ResponseWriter, r *http.Request) {
@@ -203,8 +203,8 @@ func report_delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success Report Update"
-	correctMap["report"] = report
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success Report Update"
+	// correctMap["report"] = report
+	json.NewEncoder(w).Encode(report)
 }

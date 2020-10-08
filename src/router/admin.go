@@ -54,10 +54,10 @@ func admin_login(w http.ResponseWriter, r *http.Request) {
 
 	admin.Contrasena = ""
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success Log in"
-	correctMap["admin"] = admin
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success Log in"
+	// correctMap["admin"] = admin
+	json.NewEncoder(w).Encode(admin)
 }
 
 func admin_create(w http.ResponseWriter, r *http.Request) {
@@ -81,10 +81,10 @@ func admin_create(w http.ResponseWriter, r *http.Request) {
 
 	admin.Contrasena = ""
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success creation"
-	correctMap["admin"] = admin
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success creation"
+	// correctMap["admin"] = admin
+	json.NewEncoder(w).Encode(admin)
 }
 
 func admin_update(w http.ResponseWriter, r *http.Request) {
@@ -116,10 +116,10 @@ func admin_update(w http.ResponseWriter, r *http.Request) {
 
 	admin.Contrasena = ""
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success update"
-	correctMap["admin"] = admin
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success update"
+	// correctMap["admin"] = admin
+	json.NewEncoder(w).Encode(admin)
 }
 
 func admin_delete(w http.ResponseWriter, r *http.Request) {
@@ -152,10 +152,10 @@ func admin_delete(w http.ResponseWriter, r *http.Request) {
 
 	admin.Contrasena = ""
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success delete"
-	correctMap["admin"] = admin
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success delete"
+	// correctMap["admin"] = admin
+	json.NewEncoder(w).Encode(admin)
 }
 
 func admin_all(w http.ResponseWriter, r *http.Request) {
@@ -181,10 +181,10 @@ func admin_all(w http.ResponseWriter, r *http.Request) {
 		admin.Contrasena = ""
 	}
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success get all admins"
-	correctMap["admins"] = admins
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success get all admins"
+	// correctMap["admins"] = admins
+	json.NewEncoder(w).Encode(admins)
 }
 
 func admin_byId(w http.ResponseWriter, r *http.Request) {
@@ -218,8 +218,9 @@ func admin_byId(w http.ResponseWriter, r *http.Request) {
 
 	admin.Contrasena = ""
 
-	correctMap["ok"] = true
-	correctMap["msg"] = "Success get admin"
-	correctMap["admin"] = admin
-	json.NewEncoder(w).Encode(correctMap)
+	// correctMap["ok"] = true
+	// correctMap["msg"] = "Success get admin"
+	// correctMap["admin"] = admin
+
+	json.NewEncoder(w).Encode(admin)
 }
