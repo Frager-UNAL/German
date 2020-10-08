@@ -104,6 +104,7 @@ func report_reported(w http.ResponseWriter, r *http.Request) {
 }
 
 func report_create(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r.Form)
 	correct, correctMap := verifyRequest(r, []string{"id_pregunta", "id_usuario_reporte", "comentario"})
 	correctMap["ok"] = false
 
@@ -118,8 +119,6 @@ func report_create(w http.ResponseWriter, r *http.Request) {
 	if errp != nil {
 		correctMap["id_pregunta"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id_pregunta"), errp.Error())
 	}
-
-	fmt.Println(r.Form)
 
 	if erru != nil {
 		correctMap["id_usuario_reporte"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id_usuario_reporte"), errp.Error())
