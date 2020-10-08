@@ -82,9 +82,9 @@ func Admin_update(id int, nombre string, correo string, contrasena string) (mode
 		query += fmt.Sprintf("contrasena='%s'", contrasena)
 	}
 
-	query += fmt.Sprintf("WHERE id=%d", id)
+	query += fmt.Sprintf(" WHERE id=%d", id)
 
-	results, err := Db.Query(query)
+	_, err := Db.Query(query)
 
 	var administrador models.Administrador = models.Administrador{Id: -1}
 
@@ -94,7 +94,7 @@ func Admin_update(id int, nombre string, correo string, contrasena string) (mode
 
 	query = fmt.Sprintf("SELECT * FROM Administrador WHERE id=%d", id)
 
-	results, err = Db.Query(query)
+	results, err := Db.Query(query)
 
 	if err != nil {
 		return administrador, err
