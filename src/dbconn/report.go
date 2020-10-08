@@ -21,7 +21,9 @@ func Report_getAll() ([]models.Reporte, error) {
 		exit = append(exit, tmp)
 	}
 
-	return exit, nil
+	err = rows.Err()
+
+	return exit, err
 }
 
 func Report_getUnsolved() ([]models.Reporte, error) {

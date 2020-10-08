@@ -105,7 +105,6 @@ func report_reported(w http.ResponseWriter, r *http.Request) {
 
 func report_create(w http.ResponseWriter, r *http.Request) {
 	correct, correctMap := verifyRequest(r, []string{"id_pregunta", "id_usuario_reporte", "comentario"})
-	fmt.Println(r.Form)
 	correctMap["ok"] = false
 
 	if !correct {
