@@ -153,6 +153,7 @@ func report_update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	id_r, errRep := strconv.Atoi(r.Form.Get("id"))
+	console.log(typeof r.Form.Get("id"))
 
 	if errRep != nil {
 		correctMap["id"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id"), errRep.Error())
