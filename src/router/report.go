@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"reflect"
 	"strconv"
 
 	"../dbconn"
@@ -120,6 +119,8 @@ func report_create(w http.ResponseWriter, r *http.Request) {
 		correctMap["id_pregunta"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id_pregunta"), errp.Error())
 	}
 
+	fmt.Println(r.Form)
+
 	if erru != nil {
 		correctMap["id_usuario_reporte"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id_usuario_reporte"), errp.Error())
 	}
@@ -154,7 +155,6 @@ func report_update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	id_r, errRep := strconv.Atoi(r.Form.Get("id"))
-	println(reflect.TypeOf(r.Form.Get("id")))
 
 	if errRep != nil {
 		correctMap["id"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id"), errRep.Error())
