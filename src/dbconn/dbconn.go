@@ -11,7 +11,8 @@ var (
 )
 
 func Connect(dbUrl string) error {
-	var err error
-	Db, err = sql.Open("mysql", dbUrl)
+	Db, _ = sql.Open("mysql", dbUrl)
+
+	err := Db.Ping()
 	return err
 }

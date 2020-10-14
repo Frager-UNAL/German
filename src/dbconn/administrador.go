@@ -8,7 +8,7 @@ import (
 )
 
 func Admin_getByCorreo(correo string) (bool, models.Administrador, error) {
-	var exit models.Administrador = models.Administrador{Id: -1}
+	exit := models.Administrador{Id: -1}
 
 	results, err := Db.Query("SELECT * from Administrador WHERE correo_electronico = '" + strings.ToLower(correo) + "'")
 

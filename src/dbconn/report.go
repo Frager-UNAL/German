@@ -1,6 +1,7 @@
 package dbconn
 
 import (
+	"database/sql"
 	"fmt"
 
 	"../models"
@@ -16,8 +17,12 @@ func Report_getAll() ([]models.Reporte, error) {
 	}
 
 	var tmp models.Reporte
+	var tmpId sql.NullInt32
 	for results.Next() {
-		results.Scan(&tmp.Id, &tmp.Id_pregunta, &tmp.Id_usuario_reporte, &tmp.Id_administrador, &tmp.Comentario, &tmp.Solucionado)
+		results.Scan(&tmp.Id, &tmp.Id_pregunta, &tmp.Id_usuario_reporte, &tmpId, &tmp.Comentario, &tmp.Solucionado)
+		if tmpId.Valid {
+			tmp.Id_administrador = (int)(tmpId.Int32)
+		}
 		exit = append(exit, tmp)
 	}
 
@@ -151,7 +156,15 @@ func Report_update(id_reporte int, id_pregunta string, id_usuario_reporte string
 	}
 
 	if results.Next() {
-		results.Scan(&report.Id, &report.Id_pregunta, &report.Id_usuario_reporte, &report.Id_administrador, &report.Comentario, &report.Solucionado)
+		err := results.Scan(&report.Id, &report.Id_pregunta, &report.Id_usuario_reporte, &report.Id_administrador, &report.Comentario, &report.Solucionado)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
+	err = results.Err()
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	return report, nil

@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"../dbconn"
-	_ "../models"
+	"../models"
 	"github.com/gorilla/mux"
 	_ "github.com/gorilla/mux"
 )
@@ -21,36 +21,34 @@ func router_initialize() {
 	router.HandleFunc("/report/{id}", report_delete).Methods("DELETE")
 }
 
+func router_getErrorValue() models.Reporte {
+	return models.Reporte{Id: -1}
+}
+
 func report_all(w http.ResponseWriter, r *http.Request) {
-	correct, correctMap := verifyRequest(r, []string{})
-	correctMap["ok"] = false
+	correct, _ := verifyRequest(r, []string{})
 
 	if !correct {
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode([]models.Reporte{router_getErrorValue()})
 		return
 	}
 
 	reports, err := dbconn.Report_getAll()
 
 	if err != nil {
-		correctMap["error"] = err.Error()
-		correctMap["msg"] = "Error on DB"
-		json.NewEncoder(w).Encode(correctMap)
+		fmt.Println(err)
+		json.NewEncoder(w).Encode([]models.Reporte{router_getErrorValue()})
 		return
 	}
 
-	// correctMap["ok"] = true
-	// correctMap["msg"] = "Success Get reports"
-	// correctMap["reports"] = reports
 	json.NewEncoder(w).Encode(reports)
 }
 
 func report_byId(w http.ResponseWriter, r *http.Request) {
-	correct, correctMap := verifyRequest(r, []string{})
-	correctMap["ok"] = false
+	correct, _ := verifyRequest(r, []string{})
 
 	if !correct {
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
@@ -59,128 +57,97 @@ func report_byId(w http.ResponseWriter, r *http.Request) {
 	id, errId := strconv.Atoi(idParam)
 
 	if errId != nil {
-		correctMap["id"] = fmt.Sprintf("'%s' is not a number: %s", idParam, errId.Error())
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
 	report, err := dbconn.Report_getById(id)
 
 	if err != nil {
-		correctMap["error"] = err.Error()
-		correctMap["msg"] = "Error on DB"
-		json.NewEncoder(w).Encode(correctMap)
+		fmt.Println(err)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
-	// correctMap["ok"] = true
-	// correctMap["msg"] = "Success Get report"
-	// correctMap["report"] = report
 	json.NewEncoder(w).Encode(report)
 }
 
 func report_reported(w http.ResponseWriter, r *http.Request) {
-	correct, correctMap := verifyRequest(r, []string{})
-	correctMap["ok"] = false
+	correct, _ := verifyRequest(r, []string{})
 
 	if !correct {
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode([]models.Reporte{router_getErrorValue()})
 		return
 	}
 
 	reports, error := dbconn.Report_getUnsolved()
 
 	if error != nil {
-		correctMap["error"] = error.Error()
-		correctMap["msg"] = "Error on DB"
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode([]models.Reporte{router_getErrorValue()})
 		return
 	}
 
-	// correctMap["ok"] = true
-	// correctMap["msg"] = "Success Get reports"
-	// correctMap["reports"] = reports
 	json.NewEncoder(w).Encode(reports)
 }
 
 func report_create(w http.ResponseWriter, r *http.Request) {
-	correct, correctMap := verifyRequest(r, []string{"id_pregunta", "id_usuario_reporte", "comentario"})
-	correctMap["ok"] = false
+	correct, _ := verifyRequest(r, []string{"id_pregunta", "id_usuario_reporte", "comentario"})
 
 	if !correct {
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
 	id_p, errp := strconv.Atoi(r.Form.Get("id_pregunta"))
 	id_u, erru := strconv.Atoi(r.Form.Get("id_usuario_reporte"))
 
-	if errp != nil {
-		correctMap["id_pregunta"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id_pregunta"), errp.Error())
-	}
-
-	if erru != nil {
-		correctMap["id_usuario_reporte"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id_usuario_reporte"), errp.Error())
-	}
-
 	if errp != nil || erru != nil {
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
 	report, errDB := dbconn.Report_create(id_p, id_u, r.Form.Get("comentario"))
 
 	if errDB != nil {
-		correctMap["error"] = errDB.Error()
-		correctMap["msg"] = "Error on DB"
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
-	// correctMap["ok"] = true
-	// correctMap["msg"] = "Success Report Added"
-	// correctMap["report"] = report
 	json.NewEncoder(w).Encode(report)
 }
 
 func report_update(w http.ResponseWriter, r *http.Request) {
-	correct, correctMap := verifyRequest(r, []string{"id"})
-	correctMap["ok"] = false
+	correct, _ := verifyRequest(r, []string{"id"})
 
 	if !correct {
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
 	id_r, errRep := strconv.Atoi(r.Form.Get("id"))
 
 	if errRep != nil {
-		correctMap["id"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id"), errRep.Error())
-		json.NewEncoder(w).Encode(correctMap)
+		fmt.Println(errRep)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
 	report, err := dbconn.Report_update(id_r, r.Form.Get("id_pregunta"), r.Form.Get("id_usuario_reporte"), r.Form.Get("id_admin"), r.Form.Get("comentario"), r.Form.Get("solucionado"))
 
 	if err != nil {
-		correctMap["error"] = err.Error()
-		correctMap["msg"] = "Error on DB"
-		json.NewEncoder(w).Encode(correctMap)
+		fmt.Println(err)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
-	// correctMap["ok"] = true
-	// correctMap["msg"] = "Success Report Update"
-	// correctMap["report"] = report
 	json.NewEncoder(w).Encode(report)
 }
 
 func report_delete(w http.ResponseWriter, r *http.Request) {
-	correct, correctMap := verifyRequest(r, []string{})
-	correctMap["ok"] = false
+	correct, _ := verifyRequest(r, []string{})
 
 	if !correct {
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
@@ -189,22 +156,17 @@ func report_delete(w http.ResponseWriter, r *http.Request) {
 	id, errId := strconv.Atoi(idParam)
 
 	if errId != nil {
-		correctMap["id"] = fmt.Sprintf("'%s' is not a number: %s", r.Form.Get("id"), errId.Error())
-		json.NewEncoder(w).Encode(correctMap)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
 	report, err := dbconn.Report_delete(id)
 
 	if err != nil {
-		correctMap["error"] = err.Error()
-		correctMap["msg"] = "Error on DB"
-		json.NewEncoder(w).Encode(correctMap)
+		fmt.Println(err)
+		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
-	// correctMap["ok"] = true
-	// correctMap["msg"] = "Success Report Update"
-	// correctMap["report"] = report
 	json.NewEncoder(w).Encode(report)
 }
