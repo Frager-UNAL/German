@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS Reporte;
 CREATE TABLE Reporte (
 	id integer primary key unique auto_increment,
     id_pregunta integer,
-    id_usuario_reporte varchar(50),
+    id_usuario_reporte varchar(50) default -1,
     id_administrador_solucionado integer,
     comentario varchar(300),
     solucionado boolean,

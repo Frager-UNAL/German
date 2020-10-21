@@ -1,7 +1,6 @@
 package dbconn
 
 import (
-	"database/sql"
 	"fmt"
 
 	"../models"
@@ -17,12 +16,8 @@ func Report_getAll() ([]models.Reporte, error) {
 	}
 
 	var tmp models.Reporte
-	var tmpId sql.NullInt32
 	for results.Next() {
-		results.Scan(&tmp.Id, &tmp.Id_pregunta, &tmp.Id_usuario_reporte, &tmpId, &tmp.Comentario, &tmp.Solucionado)
-		if tmpId.Valid {
-			tmp.Id_administrador = (int)(tmpId.Int32)
-		}
+		results.Scan(&tmp.Id, &tmp.Id_pregunta, &tmp.Id_usuario_reporte, &tmp.Id_administrador, &tmp.Comentario, &tmp.Solucionado)
 		exit = append(exit, tmp)
 	}
 
