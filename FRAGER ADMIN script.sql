@@ -1,4 +1,7 @@
-CREATE DATABASE IF NOT EXISTS FRAGER_ADMIN;
+
+DROP DATABASE FRAGER_ADMIN;
+
+CREATE DATABASE FRAGER_ADMIN;
 
 USE FRAGER_ADMIN;
 
@@ -20,7 +23,7 @@ DROP TABLE IF EXISTS Reporte;
 CREATE TABLE Reporte (
 	id integer primary key unique auto_increment,
     id_pregunta integer,
-    id_usuario_reporte integer,
+    id_usuario_reporte varchar(50),
     id_administrador_solucionado integer,
     comentario varchar(300),
     solucionado boolean,

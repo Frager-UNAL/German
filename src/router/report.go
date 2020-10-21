@@ -99,14 +99,13 @@ func report_create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	id_p, errp := strconv.Atoi(r.Form.Get("id_pregunta"))
-	id_u, erru := strconv.Atoi(r.Form.Get("id_usuario_reporte"))
 
-	if errp != nil || erru != nil {
+	if errp != nil {
 		json.NewEncoder(w).Encode(router_getErrorValue())
 		return
 	}
 
-	report, errDB := dbconn.Report_create(id_p, id_u, r.Form.Get("comentario"))
+	report, errDB := dbconn.Report_create(id_p, r.Form.Get("id_usuario_reporte"), r.Form.Get("comentario"))
 
 	if errDB != nil {
 		json.NewEncoder(w).Encode(router_getErrorValue())

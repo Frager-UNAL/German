@@ -49,10 +49,10 @@ func Report_getUnsolved() ([]models.Reporte, error) {
 	return exit, nil
 }
 
-func Report_create(id_pregunta int, id_usuario_reporte int, comentario string) (models.Reporte, error) {
+func Report_create(id_pregunta int, id_usuario_reporte string, comentario string) (models.Reporte, error) {
 
 	report := models.Reporte{
-		Id:                 -1,
+		Id:                 0,
 		Id_pregunta:        id_pregunta,
 		Id_usuario_reporte: id_usuario_reporte,
 		Comentario:         comentario,
@@ -60,7 +60,7 @@ func Report_create(id_pregunta int, id_usuario_reporte int, comentario string) (
 	}
 
 	query := fmt.Sprintf(
-		"INSERT INTO Reporte(id_pregunta, id_usuario_reporte, comentario, solucionado) VALUES (%d, %d, '%s', %t)",
+		"INSERT INTO Reporte(id_pregunta, id_usuario_reporte, comentario, solucionado) VALUES (%d, '%s', '%s', %t)",
 		report.Id_pregunta,
 		report.Id_usuario_reporte,
 		report.Comentario,
@@ -110,7 +110,7 @@ func Report_update(id_reporte int, id_pregunta string, id_usuario_reporte string
 			query += ", "
 		}
 		useComa = true
-		query += fmt.Sprintf("id_usuario_reporte=%s", id_usuario_reporte)
+		query += fmt.Sprintf("id_usuario_reporte='%s'", id_usuario_reporte)
 	}
 
 	if id_admin != "" {

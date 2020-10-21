@@ -6,7 +6,7 @@ type Administrador struct {
 }
 
 type Reporte struct {
-	Id, Id_pregunta, Id_usuario_reporte, Id_administrador int
-	Comentario                                            string
-	Solucionado                                           bool
+	Id, Id_pregunta, Id_administrador int
+	Comentario, Id_usuario_reporte    string
+	Solucionado                       bool
 }
