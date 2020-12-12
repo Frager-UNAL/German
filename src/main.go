@@ -35,6 +35,7 @@ func main() {
 
 	fmt.Printf("DB Error: %t\n", err != nil)
 
+
 	if err != nil {
 		println("Error on DB Connection")
 		println(err.Error())
@@ -48,6 +49,8 @@ func main() {
 		println("Error on start server")
 		println(err)
 		return
+	}else {
+		fmt.Printf("Running server on port %d\n", myEnv.PORT)
 	}
 
 }

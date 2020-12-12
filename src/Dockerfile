@@ -15,7 +15,7 @@ RUN go get github.com/joho/godotenv
 # Build the application
 RUN go build main.go
 
-EXPOSE 8000
+EXPOSE 19940
 EXPOSE 3306
 
 # Command to run when starting the container
